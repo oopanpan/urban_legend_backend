@@ -13,9 +13,10 @@ class Api::V1::UsersController < ApplicationController
     def create
         #! sign-up action
         user = User.create(user_params)
+        byebug
         if user.valid?
             token = encode_token({ user_id: user.id })
-            render json: { user: UserSerializer.new(current_user), jwt: token }, status: :created
+            render json: { user: UserSerializer.new(user), jwt: token }, status: :created
         else
             render json: { error: user.errors.full_messages }, status: :not_acceptable
         end
@@ -24,6 +25,6 @@ class Api::V1::UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:username, :email_address, :password, :password_confirmation)
+        params.require(:user).permit(:username, :email_address, :password, :password_confirmation, :keyword, :bio, :admin)
     end
 end
