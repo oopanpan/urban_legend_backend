@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'auth/login'
       get 'auth/auto_login'
+      get '/profile', to: 'user#profile'
       resources :comments
       resources :posts
       resources :users
