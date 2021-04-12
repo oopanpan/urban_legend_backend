@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      get 'auth/login'
+      post '/login', to: 'auth#login'
       get 'auth/auto_login'
-      get '/profile', to: 'user#profile'
+      get '/profile', to: 'users#profile'
       resources :comments
       resources :posts
       resources :users
