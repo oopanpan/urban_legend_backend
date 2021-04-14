@@ -3,8 +3,9 @@ class Api::V1::AuthController < ApplicationController
 
   def login
       #! login action
-      user = User.find_by(email_address: params[:email_address])
-      if user && user.authenticate(params[:password])
+      byebug
+      user = User.find_by(email_address: params[:user][:email_address])
+      if user && user.authenticate(params[:user][:password])
           token = encode_token({ user_id: user.id })
           render json: { user: UserSerializer.new(user), jwt: token }, status: :accepted
       else
