@@ -3,7 +3,6 @@ class Api::V1::AuthController < ApplicationController
 
   def login
       #! login action
-      byebug
       user = User.find_by(email_address: params[:user][:email_address])
       if user && user.authenticate(params[:user][:password])
           token = encode_token({ user_id: user.id })
