@@ -1,5 +1,17 @@
 class CommentSerializer < ActiveModel::Serializer
-  attributes :id, :content
+  attributes :id, :content, :comments, :user
   has_one :user
   has_many :comments
+
+  def user
+    {id:object.user.id, username: object.user.username}
+    # ActiveModel::SerializableResource.new(object.user,  serializer: UserSerializer)
+  end
+
+  # def comment
+  #   # object.comments.each do |comment|
+  #   #   {content: comment.content, user:{id: comment.user.id, username: comment.user.username}}
+  #   # end
+  #   ActiveModel::SerializableResource.new(object.comments,  each_serializer: CommentSerializer)
+  # end
 end

@@ -1,7 +1,7 @@
-class PostSerializer < ActiveModel::Serializer
-  attributes :id, :header, :content, :keyword, :user
-  has_one :user
-  has_many :comments
+class CommentableSerializer < ActiveModel::Serializer
+  attributes :id, :content, :comments, :user
+
+  belongs_to :user
 
   def user
     {id:object.user.id, username: object.user.username}
