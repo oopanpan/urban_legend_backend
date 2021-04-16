@@ -2,9 +2,10 @@ class Api::V1::PostsController < ApplicationController
     skip_before_action :authorized, only: [:index, :show]
     
     def index
-        # items = params[:items]
-        # page = (params[:page]*items)
-        posts = Post.order(updated_at: :desc).limit(20).offset(0)
+        byebug
+        items = params[:limit]
+        page = (params[:page]*items)
+        posts = Post.order(updated_at: :desc).limit(items).offset(page)
         render json: posts
     end
 
