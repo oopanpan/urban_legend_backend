@@ -2,10 +2,12 @@ class Api::V1::PostsController < ApplicationController
     skip_before_action :authorized, only: [:index, :show]
     
     def index
-        byebug
-        items = params[:limit]
-        page = (params[:page]*items)
+        # byebug
+        items = params[:limit].to_i
+        page = (params[:page].to_i-1)*items
+        total_pages = Post.all.count/items +1
         posts = Post.order(updated_at: :desc).limit(items).offset(page)
+        # byebug
         render json: posts
     end
 
