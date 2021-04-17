@@ -8,7 +8,7 @@ class Api::V1::UsersController < ApplicationController
 
     def show
         user = User.find(params[:id])
-        render json: { user_id: user.id, username: user.username, bio: user.bio, keyword: user.keyword }
+        render json: { user_id: user.id, username: user.username, bio: user.bio, keyword: user.keyword, avatar: rails_blob_path(user.avatar) }
     end
 
     def profile
@@ -17,8 +17,13 @@ class Api::V1::UsersController < ApplicationController
 
     def create
         #! sign-up action
-        user = User.create(user_params)
-        if user.valid?
+        user = User.new(user_params)
+        user.avatar.attach(
+            io: File.open('./public/avatars/default_avatar.png'),
+            filename: 'default_avatar.png',
+            content_type: 'application/png'
+        )
+        if user.save
             token = encode_token({ user_id: user.id })
             render json: { user: UserSerializer.new(user), jwt: token }, status: :created
         else
