@@ -1,14 +1,14 @@
 class Api::V1::PostsController < ApplicationController
-    skip_before_action :authorized, only: [:index, :show]
+    skip_before_action :authorized, only: [:index, :show, :total]
     
     def index
-        # byebug
         items = params[:limit].to_i
-        page = (params[:page].to_i-1)*items
+        page = (params[:page].to_i)*items
         total_pages = Post.all.count/items +1
-        posts = Post.order(updated_at: :desc).limit(items).offset(page)
         # byebug
-        render json: posts
+        @posts = Post.order(updated_at: :desc).limit(items).offset(page)
+        # byebug
+        render json: { posts: ActiveModel::SerializableResource.new(@posts,  each_serializer: PostSerializer), total_pages: total_pages }
     end
 
     def show
