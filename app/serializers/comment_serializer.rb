@@ -4,7 +4,7 @@ class CommentSerializer < ActiveModel::Serializer
   has_many :comments
 
   def user
-    {id:object.user.id, username: object.user.username}
+    {id:object.user.id, username: object.user.username, avatar: Rails.application.routes.url_helpers.rails_blob_path(object.user.avatar, only_path: true)}
     # ActiveModel::SerializableResource.new(object.user,  serializer: UserSerializer)
   end
 

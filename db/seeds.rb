@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+james = User.find(48)
+
+james.avatar.attach(
+    io: File.open('./public/avatars/default_avatar.png'),
+    filename: 'default_avatar.png',
+    content_type: 'application/png'
+)
