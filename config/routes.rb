@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       post '/login', to: 'auth#login'
       get 'auth/auto_login'
       get '/profile', to: 'users#profile'
+      resources :friendships, only: [:create, :destroy]
       resources :comments
       resources :posts
       resources :users

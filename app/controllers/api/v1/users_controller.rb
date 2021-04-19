@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-    skip_before_action :authorized, only: [:create, :index, :profile]
+    skip_before_action :authorized, only: [:create, :index, :profile, :show]
 
     def index
         users = User.all
@@ -8,11 +8,15 @@ class Api::V1::UsersController < ApplicationController
 
     def show
         user = User.find(params[:id])
-        render json: { user_id: user.id, username: user.username, bio: user.bio, keyword: user.keyword, avatar: rails_blob_path(user.avatar) }
+        # render json: { id: user.id, username: user.username, bio: user.bio, keyword: user.keyword, avatar: rails_blob_path(user.avatar),
+        # posts: user.posts,
+        # followed: user.friends,
+        # follower: user.inverse_friends }
+        render json: { user: UserSerializer.new(user) }
     end
 
     def profile
-        render json: { user: UserSerializer.new(current_user) }, status: :accepted
+        render json: { user: UserSerializer.new(current_user), avatar: rails_blob_path(current_user.avatar) }, status: :accepted
     end
 
     def create

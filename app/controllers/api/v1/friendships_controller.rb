@@ -1,11 +1,13 @@
-class Api::V1::FriendshipssController < ApplicationController 
+class Api::V1::FriendshipsController < ApplicationController 
 
     def create
         friendship = Friendship.new
-        friendship.user_id = params[:user_id]
-        friendship.friend_id = params[:friend_id]
+        user = User.find(params[:user_id])
+        friend = User.find(params[:friend_id])
+        friendship.user = user
+        friendship.friend = friend
         if friendship.save
-            render json: {message: 'sucess'}
+            render json: friendship
         else
             render json: {message: 'fail'}
         end
