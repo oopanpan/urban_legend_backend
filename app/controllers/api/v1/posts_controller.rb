@@ -2,16 +2,17 @@ class Api::V1::PostsController < ApplicationController
     skip_before_action :authorized, only: [:index, :show, :total]
     
     def index
+        # byebug
         keyword = params[:key]
         items = params[:limit].to_i
         page = (params[:page].to_i)*items
-        if keyword == 'Global'
+        if keyword == 'global'
             total_pages = Post.all.count/items +1
             @posts = Post.order(updated_at: :desc).limit(items).offset(page)
             render json: { posts: ActiveModel::SerializableResource.new(@posts,  each_serializer: PostSerializer), total_pages: total_pages }
         else
-            post = Post.all.where("keyword LIKE ?", "%#{keyword}%").order(updated_at: :DESC)
-            total_pages = post.count/items +1
+            posts = Post.all.where("keyword LIKE ?", "%#{keyword}%").order(updated_at: :DESC).limit(items).offset(page)
+            total_pages = posts.count/items +1
             render json: { posts: ActiveModel::SerializableResource.new(posts,  each_serializer: PostSerializer), total_pages: total_pages }
         end
     end

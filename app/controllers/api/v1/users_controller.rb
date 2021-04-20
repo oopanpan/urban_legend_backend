@@ -35,9 +35,27 @@ class Api::V1::UsersController < ApplicationController
         end
     end
 
+    def update
+        user = User.find(params[:id])
+        avatar = params[:avatar]
+        if avatar
+            user.avatar.purge
+        end
+        if user.update(update_params)
+            render json: { user: UserSerializer.new(user)}, status: :accepted
+        else
+            render json: {message: 'Information not accpeted'}, status: :not_acceptable
+        end
+
+    end
+
     private
 
     def user_params
         params.require(:user).permit(:username, :email_address, :password, :password_confirmation, :keyword, :bio, :admin, :avatar)
+    end
+
+    def update_params
+        params.permit(:username, :email_address, :password, :password_confirmation, :keyword, :bio, :admin, :avatar)
     end
 end
