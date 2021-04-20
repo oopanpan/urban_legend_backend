@@ -2,13 +2,18 @@ class Api::V1::PostsController < ApplicationController
     skip_before_action :authorized, only: [:index, :show, :total]
     
     def index
+        keyword = params[:key]
         items = params[:limit].to_i
         page = (params[:page].to_i)*items
-        total_pages = Post.all.count/items +1
-        # byebug
-        @posts = Post.order(updated_at: :desc).limit(items).offset(page)
-        # byebug
-        render json: { posts: ActiveModel::SerializableResource.new(@posts,  each_serializer: PostSerializer), total_pages: total_pages }
+        if keyword == 'Global'
+            total_pages = Post.all.count/items +1
+            @posts = Post.order(updated_at: :desc).limit(items).offset(page)
+            render json: { posts: ActiveModel::SerializableResource.new(@posts,  each_serializer: PostSerializer), total_pages: total_pages }
+        else
+            post = Post.all.where("keyword LIKE ?", "%#{keyword}%").order(updated_at: :DESC)
+            total_pages = post.count/items +1
+            render json: { posts: ActiveModel::SerializableResource.new(posts,  each_serializer: PostSerializer), total_pages: total_pages }
+        end
     end
 
     def show
@@ -17,8 +22,12 @@ class Api::V1::PostsController < ApplicationController
     end
 
     def create
-        post = Post.create(posts_params)
-        render json: post
+        post = Post.new(posts_params)
+        if post.save
+            render json: post
+        else
+            render json: {message: post.errors.full_messages}
+        end
     end
 
     def update

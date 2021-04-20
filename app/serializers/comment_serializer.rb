@@ -11,9 +11,9 @@ class CommentSerializer < ActiveModel::Serializer
   end
 
   # def comment
-  #   # object.comments.each do |comment|
-  #   #   {content: comment.content, user:{id: comment.user.id, username: comment.user.username}}
-  #   # end
+  #   object.comments.each do |comment|
+  #     {content: comment.content, user:{id: comment.user.id, username: comment.user.username}}
+  #   end
   #   ActiveModel::SerializableResource.new(object.comments,  each_serializer: CommentSerializer)
   # end
 end
