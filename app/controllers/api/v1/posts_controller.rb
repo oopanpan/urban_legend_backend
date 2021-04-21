@@ -2,8 +2,8 @@ class Api::V1::PostsController < ApplicationController
     skip_before_action :authorized, only: [:index, :show, :total]
     
     def index
-        # byebug
         keyword = params[:key]
+        keyword.downcase!
         items = params[:limit].to_i
         page = (params[:page].to_i)*items
         if keyword == 'global'
