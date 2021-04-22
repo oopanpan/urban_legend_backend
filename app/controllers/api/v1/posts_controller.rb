@@ -33,8 +33,11 @@ class Api::V1::PostsController < ApplicationController
 
     def update
         post = Post.find(params[:id])
-        post.update(posts_params)
-        render json: post
+        if post.update(posts_params)
+            render json: post
+        else
+            render json: {message: 'Header and content are required'}
+        end
     end
 
     def destroy

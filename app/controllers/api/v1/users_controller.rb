@@ -44,7 +44,7 @@ class Api::V1::UsersController < ApplicationController
         if user.update(update_params)
             render json: { user: UserSerializer.new(user)}, status: :accepted
         else
-            render json: {message: 'Information not accpeted'}
+            render json: {message: user.errors.full_messages}
         end
 
     end
@@ -56,6 +56,6 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def update_params
-        params.permit(:username, :email_address, :password, :password_confirmation, :keyword, :bio, :admin, :avatar)
+        params.permit(:id, :username,:keyword, :bio, :admin, :avatar)
     end
 end
