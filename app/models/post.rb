@@ -5,4 +5,5 @@ class Post < ApplicationRecord
   has_many :liked_users, through: :likes, source: :user
 
     validates :header, presence: true
+    validates :content, presence: true
 end

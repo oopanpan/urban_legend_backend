@@ -2,8 +2,12 @@ class Api::V1::CommentsController < ApplicationController
     skip_before_action :authorized, only: :show
     
     def create
-        comment = Comment.create(comment_params)
-        render json: comment
+        comment = Comment.new(comment_params)
+        if comment.save
+            render json: comment
+        else
+            render json: {message: comment.errors.full_messages}
+        end
     end
 
     def show
@@ -13,8 +17,11 @@ class Api::V1::CommentsController < ApplicationController
 
     def update
         comment = Comment.find(params[:id])
-        comment.update(comment_params)
-        render json: comment
+        if comment.update(comment_params)
+            render json: comment
+        else
+            render json: {message: 'comment update failed'}
+        end
     end
 
     def destroy
