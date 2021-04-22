@@ -27,6 +27,7 @@ class Api::V1::UsersController < ApplicationController
             filename: 'default_avatar.png',
             content_type: 'application/png'
         )
+        user.keyword='Global'
         if user.save
             token = encode_token({ user_id: user.id })
             render json: { user: UserSerializer.new(user), jwt: token }, status: :created
