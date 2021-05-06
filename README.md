@@ -5,15 +5,20 @@ Frontend repo: [LINK](https://github.com/oopanpan/urban_legend_fronend)
 
 ## Environment and dependency
 
-ruby '2.7.1'
-rails '~> 6.1.3'
-bcrypt '~> 3.1.7'
-rack-cors
-jwt '~> 2.2'
+ruby '2.7.1',
+
+rails '~> 6.1.3',
+
+bcrypt '~> 3.1.7',
+
+rack-cors,
+
+jwt '~> 2.2',
 
 ## Database
 
 postgreSQL
+
 to install and set up postgreSQL on local machine, please refer [HERE](https://www.postgresql.org/download/)
 
 ## Setup
