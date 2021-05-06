@@ -18,13 +18,13 @@ local:
 google_dev:
     service: GCS
     project: urban_legend
-    credentials: <%= ENV['GCS_KEY'].to_json %>
+    credentials: <%= ENV['GCS_KEY'] %>
     bucket: urban_legend
 
 google:
     service: GCS
     project: urban_legend
-    credentials: <%= ENV['GCS_KEY'].to_json %>
+    credentials: <%= ENV['GCS_KEY'] %>
     bucket: urban_legend
 # Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
 # microsoft:
