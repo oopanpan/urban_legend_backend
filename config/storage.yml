@@ -18,7 +18,7 @@ local:
 google_dev:
     service: GCS
     project: urban_legend
-    credentials: <%= ENV['GCS_KEY'].to_json %>
+    credentials: <%= Rails.application.credentials.gcskey.to_json %>
     bucket: urban_legend
 
 google:
