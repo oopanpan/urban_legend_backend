@@ -15,10 +15,16 @@ local:
 #   bucket: your_own_bucket
 
 # Remember not to checkin your GCS keyfile to a repository
+google_dev:
+    service: GCS
+    project: urban_legend
+    credentials: <%= ENV['GCS_KEY'].to_json %>
+    bucket: urban_legend
+
 google:
     service: GCS
     project: urban_legend
-    credentials: <%= Rails.root.join("config/secrets/urban_legend_pic.json") %>
+    credentials: <%= Rails.application.credentials.gcskey.to_json %>
     bucket: urban_legend
 # Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
 # microsoft:

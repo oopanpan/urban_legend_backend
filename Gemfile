@@ -43,4 +43,6 @@ gem "active_model_serializers", "~> 0.10.12"
 
 gem "jwt", "~> 2.2"
 
-gem "google-cloud-storage", "~> 1.31"
+gem "google-cloud-storage", "~> 1.31", require: false
+
+gem "dotenv-rails", "~> 2.7"
