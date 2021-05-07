@@ -28,4 +28,5 @@
 
 /config/secrets/*
 
+
 .env
