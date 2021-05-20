@@ -8,10 +8,6 @@ class Api::V1::UsersController < ApplicationController
 
     def show
         user = User.find(params[:id])
-        # render json: { id: user.id, username: user.username, bio: user.bio, keyword: user.keyword, avatar: rails_blob_path(user.avatar),
-        # posts: user.posts,
-        # followed: user.friends,
-        # follower: user.inverse_friends }
         render json: { user: UserSerializer.new(user) }
     end
 
