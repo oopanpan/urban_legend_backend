@@ -17,7 +17,10 @@ gem 'puma', '~> 5.0'
 gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
+# AWS S3 essential gem
+gem 'aws-sdk-s3', require: false
+
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -39,10 +42,14 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+# serializers to clean up data
 gem "active_model_serializers", "~> 0.10.12"
 
+# world famous string encryption tool
 gem "jwt", "~> 2.2"
 
-gem "google-cloud-storage", "~> 1.31", require: false
+# google cloud storage gem
+# gem "google-cloud-storage", "~> 1.31", require: false
 
+# development envrinomental variable gem
 gem "dotenv-rails", "~> 2.7"
