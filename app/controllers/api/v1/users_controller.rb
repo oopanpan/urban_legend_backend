@@ -37,6 +37,7 @@ class Api::V1::UsersController < ApplicationController
         user = User.find(params[:id])
         avatar = params[:avatar]
         if avatar
+            #! THE BUCKET WONT GRANT ACCESS FOR DELETION
             user.avatar.purge
         end
         if user.update(update_params)
