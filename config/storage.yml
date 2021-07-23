@@ -13,9 +13,6 @@ amazon:
   region: us-west-2
   secret_access_key: "<%= ENV['SECRET_ACCESS_KEY'] %>"
   service: S3
-local: 
-  root: "<%= Rails.root.join("storage") %>"
-  service: Disk
         # access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
         # secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
 # Remember not to checkin your GCS keyfile to a repository
