@@ -36,10 +36,10 @@ class Api::V1::UsersController < ApplicationController
     def update
         user = User.find(params[:id])
         avatar = params[:avatar]
-        # if avatar
-        #     #! THE BUCKET WONT GRANT ACCESS FOR DELETION
-        #     user.avatar.purge
-        # end
+        if avatar
+            #! THE BUCKET WONT GRANT ACCESS FOR DELETION
+            user.avatar.purge_later
+        end
         if user.update(update_params)
             render json: { user: UserSerializer.new(user)}, status: :accepted
         else

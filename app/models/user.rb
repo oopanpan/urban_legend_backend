@@ -1,10 +1,10 @@
 class User < ApplicationRecord
-    has_many :posts
-    has_many :comments
+    has_many :posts, dependent: :destroy
+    has_many :comments, dependent: :destroy
     has_many :commented_posts, through: :comments, source: :commentable, source_type: 'Post'
-    has_many :likes
+    has_many :likes, dependent: :destroy
     has_many :liked_posts, through: :likes, source: :post
-    has_one_attached :avatar
+    has_one_attached :avatar, dependent: :destroy
 
     has_many :friendships
     has_many :friends, through: :friendships
